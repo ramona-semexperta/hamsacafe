@@ -46,9 +46,13 @@
                     <h1 class="text-2xl font-serif-bohemian font-bold text-earth-brown">Hamsa Cafe</h1>
                 </div>
                 
-                <nav>
-                    <ul id="nav-menu" class="flex space-x-8"></ul>
+                <nav class="hidden md:block">
+                    <ul id="nav-menu" class="flex space-x-2 items-center"></ul>
                 </nav>
+                <!-- Mobile hamburger -->
+                <button id="mobile-menu-btn" class="md:hidden text-earth-brown text-2xl focus:outline-none">
+                    <i class="fas fa-bars"></i>
+                </button>
                 
                 <div class="hidden md:block">
                     <button id="theme-toggle" class="bg-spiritual-blue text-white px-4 py-2 rounded-full hover:bg-romantic-purple transition">
@@ -200,14 +204,111 @@
         </div>
     </footer>
 
+    <!-- ── COOKIE BANNER ─────────────────────────────────────────────── -->
+    <div id="cookie-banner" class="fixed bottom-0 left-0 right-0 z-[100] hidden">
+        <div class="bg-earth-brown text-white shadow-2xl border-t-2 border-bohemian-gold/40">
+            <div class="container mx-auto px-4 py-5 md:py-6">
+                <div class="flex flex-col md:flex-row md:items-center gap-4 md:gap-8">
+                    <div class="flex items-start gap-3 flex-1">
+                        <div class="w-10 h-10 rounded-full bg-bohemian-gold/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <i class="fas fa-hand-paper text-bohemian-gold text-base"></i>
+                        </div>
+                        <div>
+                            <p class="font-serif-bohemian font-bold text-white text-base mb-1">We respect your privacy</p>
+                            <p class="text-gray-300 text-sm leading-relaxed max-w-2xl">
+                                Hamsa Cafe uses <strong class="text-white">essential cookies</strong> to keep the site working, and <strong class="text-white">advertising cookies</strong> (Google AdSense) to help us keep this space free. You can choose what you accept below.
+                                <a href="#cookies" class="text-bohemian-gold hover:text-white underline underline-offset-2 ml-1 transition">Cookie Policy</a>
+                            </p>
+                            <div class="flex flex-wrap gap-5 mt-3">
+                                <label class="flex items-center gap-2 cursor-not-allowed select-none">
+                                    <div class="w-10 h-5 bg-peace-green rounded-full flex items-center px-0.5">
+                                        <div class="w-4 h-4 bg-white rounded-full ml-auto"></div>
+                                    </div>
+                                    <span class="text-xs text-gray-300">Essential <span class="text-gray-500">(always on)</span></span>
+                                </label>
+                                <label class="flex items-center gap-2 cursor-pointer select-none" for="cookie-ads-toggle">
+                                    <div id="cookie-ads-track" class="w-10 h-5 bg-gray-500 rounded-full flex items-center px-0.5 transition-colors duration-200">
+                                        <div id="cookie-ads-thumb" class="w-4 h-4 bg-white rounded-full transition-transform duration-200"></div>
+                                    </div>
+                                    <input type="checkbox" id="cookie-ads-toggle" class="sr-only" checked>
+                                    <span class="text-xs text-gray-300">Advertising <span class="text-gray-500">(AdSense)</span></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-2 flex-shrink-0">
+                        <button id="cookie-reject" class="px-5 py-2.5 rounded-full border border-gray-500 text-gray-300 hover:border-gray-300 hover:text-white text-sm font-semibold transition">
+                            Essential only
+                        </button>
+                        <button id="cookie-custom" class="px-5 py-2.5 rounded-full border border-bohemian-gold/60 text-bohemian-gold hover:bg-bohemian-gold/10 text-sm font-semibold transition">
+                            Save my choice
+                        </button>
+                        <button id="cookie-accept" class="px-6 py-2.5 rounded-full bg-bohemian-gold text-white hover:bg-bohemian-gold/80 text-sm font-bold transition shadow-md">
+                            Accept all
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Nav Overlay -->
+    <div id="mobile-nav" class="fixed inset-0 z-40 bg-white/97 backdrop-blur-sm hidden flex-col pt-24 px-8 overflow-y-auto">
+        <button id="mobile-close" class="absolute top-5 right-6 text-earth-brown text-2xl"><i class="fas fa-times"></i></button>
+        <div id="mobile-nav-content"></div>
+    </div>
+
+    <!-- Subpage Overlay -->
+    <div id="subpage-overlay" class="fixed inset-0 z-30 bg-soft-cream overflow-y-auto hidden">
+        <div class="container mx-auto px-4 py-12">
+            <button id="back-btn" class="mb-8 flex items-center text-earth-brown hover:text-bohemian-gold transition font-semibold">
+                <i class="fas fa-arrow-left mr-2"></i> Back to Home
+            </button>
+            <div id="subpage-content"></div>
+        </div>
+    </div>
+
     <!-- JavaScript -->
     <script>
-        // Data layer
+        // ─── Navigation Data ───────────────────────────────────────────
         const navigationItems = [
-            { "label": "Home", "href": "#home", "icon": "fas fa-home" },
-            { "label": "Cultural Events", "href": "#events", "icon": "fas fa-calendar-alt" },
-            { "label": "Peace Stories", "href": "#stories", "icon": "fas fa-book-open" },
-            { "label": "Meditation Hub", "href": "#meditation", "icon": "fas fa-spa" }
+            { "label": "Home", "href": "#home", "icon": "fas fa-home", "dropdown": null },
+            {
+                "label": "Coffee & Café Corner",
+                "href": "#coffee",
+                "icon": "fas fa-coffee",
+                "dropdown": [
+                    { "label": "Our Coffee Story",       "href": "#coffee-story",      "icon": "fas fa-book-open",     "desc": "The journey behind our blends & culture" },
+                    { "label": "Café Menu & Recipes",    "href": "#coffee-menu",       "icon": "fas fa-mug-hot",       "desc": "From Arabic qahwa to Italian espresso" },
+                    { "label": "Coffee Rituals",         "href": "#coffee-rituals",    "icon": "fas fa-hand-sparkles", "desc": "Ceremony, tradition & mindful brewing" },
+                    { "label": "Café Events & Tastings", "href": "#coffee-events",     "icon": "fas fa-calendar-alt",  "desc": "Live sessions, pop-ups & tastings" },
+                    { "label": "The Café Community",     "href": "#coffee-community",  "icon": "fas fa-users",         "desc": "Stories from our café regulars" }
+                ]
+            },
+            {
+                "label": "Hamsa Corner",
+                "href": "#hamsa",
+                "icon": "fas fa-hand-paper",
+                "dropdown": [
+                    { "label": "Hamsa Origins & History",  "href": "#hamsa-history",   "icon": "fas fa-scroll",        "desc": "Tracing the Hand of Fatima across millennia" },
+                    { "label": "Hamsa in Art & Design",    "href": "#hamsa-art",       "icon": "fas fa-palette",       "desc": "Visual expressions across cultures" },
+                    { "label": "Symbolism & Meaning",      "href": "#hamsa-symbolism", "icon": "fas fa-eye",           "desc": "Protection, luck & spiritual significance" },
+                    { "label": "Hamsa Meditation",         "href": "#hamsa-meditation","icon": "fas fa-spa",           "desc": "Guided practices & mindfulness sessions" },
+                    { "label": "Community Gallery",        "href": "#hamsa-gallery",   "icon": "fas fa-images",        "desc": "Your Hamsa moments & creations" }
+                ]
+            },
+            {
+                "label": "Middle Eastern Lifestyle & Food",
+                "href": "#me-lifestyle",
+                "icon": "fas fa-moon",
+                "dropdown": [
+                    { "label": "Traditional Recipes",      "href": "#me-recipes",      "icon": "fas fa-utensils",      "desc": "Authentic dishes from across the region" },
+                    { "label": "Culture & Traditions",     "href": "#me-culture",      "icon": "fas fa-globe-asia",    "desc": "Customs, celebrations & everyday life" },
+                    { "label": "Music & Arts",             "href": "#me-arts",         "icon": "fas fa-music",         "desc": "Poetry, oud, calligraphy & more" },
+                    { "label": "Travel & Destinations",    "href": "#me-travel",       "icon": "fas fa-map-marked-alt","desc": "Hidden gems & timeless landmarks" },
+                    { "label": "Peace & Dialogue",         "href": "#me-peace",        "icon": "fas fa-peace",         "desc": "Bridges built through shared stories" }
+                ]
+            }
         ];
 
         const benefitsData = [
@@ -275,13 +376,249 @@
             { "id": "events", "label": "Event Participation" }
         ];
 
-        // Reusable render functions
+        // ─── Subpage Content Templates ─────────────────────────────────
+        // Each entry: title, icon, color, img, body (intro), articles[]
+        // articles[]: { title, excerpt, img, tag, readTime }
+        const subpageTemplates = {
+            "#coffee-story": {
+                title:"Our Coffee Story", icon:"fas fa-book-open", color:"bohemian-gold",
+                img:"https://picsum.photos/900/400?random=20",
+                body:"From the ancient highlands of Ethiopia to the bustling souks of Istanbul — coffee has always been more than a drink. It is a ritual, a conversation, a bridge between strangers. Here at Hamsa Cafe, we celebrate every chapter of that journey.",
+                articles:[
+                    { title:"The Ethiopian Origins of Coffee", tag:"History", readTime:"5 min", img:"https://picsum.photos/400/240?random=201", excerpt:"Long before coffee conquered the world, it grew wild in Kaffa, Ethiopia. Discover how goatherds, monks, and traders shaped the first chapter of coffee's global story." },
+                    { title:"Coffee Across the Arab World", tag:"Culture", readTime:"6 min", img:"https://picsum.photos/400/240?random=202", excerpt:"From Yemen's port of Mocha to the qahwakhanas of Cairo, the Arab world transformed coffee from a curiosity into a civilisation-defining ritual." },
+                    { title:"The Ottoman Coffeehouse Revolution", tag:"History", readTime:"4 min", img:"https://picsum.photos/400/240?random=203", excerpt:"How Istanbul's kahvehane became the original 'third place' — a space for debate, music, chess, and radical ideas centuries before the internet." },
+                    { title:"Coffee Meets Europe: Scandal & Seduction", tag:"World", readTime:"5 min", img:"https://picsum.photos/400/240?random=204", excerpt:"When coffee arrived in Venice and Paris, it was feared, taxed, and eventually beloved. The story of how a dark brew changed Western social life forever." },
+                    { title:"Modern Third-Wave Coffee Culture", tag:"Today", readTime:"4 min", img:"https://picsum.photos/400/240?random=205", excerpt:"Single origins, micro-roasters, and pour-over rituals — how a new generation rediscovered coffee as craft, terroir, and storytelling." }
+                ]
+            },
+            "#coffee-menu": {
+                title:"Café Menu & Recipes", icon:"fas fa-mug-hot", color:"earth-brown",
+                img:"https://picsum.photos/900/400?random=21",
+                body:"Discover our curated collection of recipes spanning continents — the rich spiced Arabic qahwa, the velvety Turkish kahve, the sweet cardamom-kissed Saudi blend, and classic Italian pulls. Each recipe carries a story and an invitation.",
+                articles:[
+                    { title:"Arabic Qahwa: The Saffron-Spiced Welcome", tag:"Recipe", readTime:"7 min", img:"https://picsum.photos/400/240?random=211", excerpt:"Pale gold, fragrant with cardamom and saffron, qahwa is hospitality in a cup. Learn the traditional method and the etiquette of serving it in Arabic culture." },
+                    { title:"Turkish Kahve: Sand, Fire & Foam", tag:"Recipe", readTime:"6 min", img:"https://picsum.photos/400/240?random=212", excerpt:"The cezve, the sand tray, the thick crema — making Turkish coffee is a meditative ritual with centuries of culture behind every sip." },
+                    { title:"Ethiopian Buna Ceremony at Home", tag:"Ritual", readTime:"8 min", img:"https://picsum.photos/400/240?random=213", excerpt:"Roasting green beans over charcoal, brewing three rounds in a jabena — recreate the most sacred coffee ceremony in the world in your own kitchen." },
+                    { title:"Moroccan Spiced Coffee with Ras El Hanout", tag:"Recipe", readTime:"5 min", img:"https://picsum.photos/400/240?random=214", excerpt:"A warming cup of North African coffee blended with the region's iconic spice mix. Earthy, sweet, and unlike anything else you've tasted." },
+                    { title:"Cardamom Cold Brew: A Modern Middle Eastern Twist", tag:"Modern", readTime:"4 min", img:"https://picsum.photos/400/240?random=215", excerpt:"Slow-steeped overnight with whole green cardamom pods, this cold brew bridges tradition and contemporary café culture beautifully." }
+                ]
+            },
+            "#coffee-rituals": {
+                title:"Coffee Rituals", icon:"fas fa-hand-sparkles", color:"romantic-purple",
+                img:"https://picsum.photos/900/400?random=22",
+                body:"Brewing coffee is an act of care. We explore the ceremonies that surround it — the Ethiopian Buna ritual, the Persian tea houses, the slow pour-over meditations — and invite you to find your own mindful practice.",
+                articles:[
+                    { title:"The Ethiopian Buna: A Three-Round Ceremony", tag:"Ceremony", readTime:"6 min", img:"https://picsum.photos/400/240?random=221", excerpt:"Each of the three rounds has a name and a meaning — Abol, Tona, Baraka. Together they form a ritual of gratitude, community, and blessing." },
+                    { title:"Mindful Brewing: Pour-Over as Meditation", tag:"Mindfulness", readTime:"5 min", img:"https://picsum.photos/400/240?random=222", excerpt:"The slow pour, the bloom, the patience — how the pour-over method became a gateway to mindfulness for thousands of coffee lovers worldwide." },
+                    { title:"Coffee Fortune Telling: Reading the Cup", tag:"Tradition", readTime:"4 min", img:"https://picsum.photos/400/240?random=223", excerpt:"Tasseography, or tasseomancy, has been practiced in Turkey and the Levant for centuries. How to read a coffee cup and what the symbols mean." },
+                    { title:"The Japanese Coffee Ceremony Influence", tag:"World", readTime:"5 min", img:"https://picsum.photos/400/240?random=224", excerpt:"Japan adapted the Middle Eastern and Western coffee traditions into something distinctly their own — precise, minimal, deeply respectful of the bean." },
+                    { title:"Creating Your Own Morning Coffee Ritual", tag:"Lifestyle", readTime:"4 min", img:"https://picsum.photos/400/240?random=225", excerpt:"A ritual doesn't need centuries behind it to be meaningful. Build a personal morning coffee practice that grounds you before the day begins." }
+                ]
+            },
+            "#coffee-events": {
+                title:"Café Events & Tastings", icon:"fas fa-calendar-alt", color:"spiritual-blue",
+                img:"https://picsum.photos/900/400?random=23",
+                body:"Join our live tasting sessions, roaster pop-ups, and cultural coffee evenings. Whether online or in-person, every event is a chance to connect over a shared cup and an open heart.",
+                articles:[
+                    { title:"How to Host a Cross-Cultural Coffee Evening", tag:"Guide", readTime:"6 min", img:"https://picsum.photos/400/240?random=231", excerpt:"A step-by-step guide to organising a coffee evening that celebrates multiple traditions — from invitations and preparation to serving and conversation." },
+                    { title:"Virtual Coffee Tastings: Making It Work Online", tag:"Digital", readTime:"5 min", img:"https://picsum.photos/400/240?random=232", excerpt:"Connecting coffee lovers across borders doesn't require a physical café. How to run a virtual tasting that's genuinely engaging and delicious." },
+                    { title:"What to Expect at a Specialty Coffee Cupping", tag:"Education", readTime:"5 min", img:"https://picsum.photos/400/240?random=233", excerpt:"Slurping, spitting, and scoring — a cupping session is how professionals evaluate coffee. Here's a beginner's guide to joining the ritual." },
+                    { title:"Our Upcoming Coffee Pop-Up Calendar", tag:"Events", readTime:"3 min", img:"https://picsum.photos/400/240?random=234", excerpt:"A preview of Hamsa Cafe's upcoming in-person and online events — dates, locations, and how to join or host your own local gathering." },
+                    { title:"Coffee & Music: Our Cultural Evening Format", tag:"Community", readTime:"4 min", img:"https://picsum.photos/400/240?random=235", excerpt:"Why we pair every coffee tasting with live music from the culture behind the cup — and how music and flavour deepen each other." }
+                ]
+            },
+            "#coffee-community": {
+                title:"The Café Community", icon:"fas fa-users", color:"peace-green",
+                img:"https://picsum.photos/900/400?random=24",
+                body:"Meet the regulars, the roasters, and the storytellers who make Hamsa Cafe what it is. Share your own coffee memory and become part of our ever-growing circle.",
+                articles:[
+                    { title:"Voices from the Circle: Community Stories", tag:"People", readTime:"6 min", img:"https://picsum.photos/400/240?random=241", excerpt:"Members from Morocco, Japan, Brazil, and Sweden share what coffee means to them — the memories, the people, and the moments it marks." },
+                    { title:"Meet Our Featured Roasters", tag:"Spotlight", readTime:"5 min", img:"https://picsum.photos/400/240?random=242", excerpt:"Behind every great cup is a roaster with a story. We profile the small-batch artisans whose beans fill our community's kettles." },
+                    { title:"How Coffee Brought Our Community Together", tag:"Story", readTime:"4 min", img:"https://picsum.photos/400/240?random=243", excerpt:"The founding story of Hamsa Cafe — how a shared love of coffee across cultural lines became the seed of something much larger." },
+                    { title:"Submit Your Coffee Story", tag:"Participate", readTime:"2 min", img:"https://picsum.photos/400/240?random=244", excerpt:"We want to hear from you. Whether it's a childhood memory, a recipe, or a ritual — every story belongs in our community archive." },
+                    { title:"Building a Local Coffee Community: A How-To", tag:"Guide", readTime:"5 min", img:"https://picsum.photos/400/240?random=245", excerpt:"Practical advice for anyone who wants to start a cross-cultural coffee circle in their city — lessons learned from our own journey." }
+                ]
+            },
+            "#hamsa-history": {
+                title:"Hamsa Origins & History", icon:"fas fa-scroll", color:"bohemian-gold",
+                img:"https://picsum.photos/900/400?random=30",
+                body:"The Hamsa hand has watched over humanity for thousands of years — appearing in Phoenician amulets, Jewish mezuzot, Islamic art, and Berber jewelry. This is the story of a symbol that belongs to everyone.",
+                articles:[
+                    { title:"The Hamsa in Arabic & Islamic Tradition", tag:"Islam", readTime:"7 min", img:"https://picsum.photos/400/240?random=301", excerpt:"Known as Khamsa or the Hand of Fatima, the Hamsa holds deep meaning in Islamic culture — representing the Five Pillars, divine protection, and the Prophet's family." },
+                    { title:"The Hamsa in Jewish Tradition", tag:"Judaism", readTime:"6 min", img:"https://picsum.photos/400/240?random=302", excerpt:"Called the Hand of Miriam, the Hamsa is one of the most beloved symbols in Jewish life — present in amulets, mezuzot, art, and jewellery for millennia." },
+                    { title:"The Hamsa in Hinduism & Indian Culture", tag:"Hinduism", readTime:"6 min", img:"https://picsum.photos/400/240?random=303", excerpt:"The open palm as a mudra, the abhaya gesture of protection — how Indian spiritual traditions share the universal language of the open hand." },
+                    { title:"The Hamsa in Christian & Byzantine Art", tag:"Christianity", readTime:"5 min", img:"https://picsum.photos/400/240?random=304", excerpt:"The Hand of God, the Mano Poderosa, the protective palm in Byzantine mosaics — Christianity's relationship with the open hand as a sacred symbol." },
+                    { title:"The Hamsa's Ancient Phoenician Roots", tag:"Ancient History", readTime:"5 min", img:"https://picsum.photos/400/240?random=305", excerpt:"Before it belonged to any religion, the hand symbol appeared in Phoenician amulets dedicated to Tanit. Tracing the Hamsa back to its earliest known form." }
+                ]
+            },
+            "#hamsa-art": {
+                title:"Hamsa in Art & Design", icon:"fas fa-palette", color:"romantic-purple",
+                img:"https://picsum.photos/900/400?random=31",
+                body:"Artists, jewelers, and designers across centuries have reinterpreted the Hamsa. Explore how this ancient motif lives in contemporary galleries, street murals, and handcrafted jewellery today.",
+                articles:[
+                    { title:"Hamsa in Traditional North African Craft", tag:"Craft", readTime:"6 min", img:"https://picsum.photos/400/240?random=311", excerpt:"From hammered silver in Marrakech's souks to hand-painted ceramics in Fez, how Moroccan and Tunisian artisans have kept the Hamsa alive in everyday objects." },
+                    { title:"Contemporary Artists Reimagining the Hamsa", tag:"Modern Art", readTime:"5 min", img:"https://picsum.photos/400/240?random=312", excerpt:"A survey of living artists — from Tel Aviv to Tehran — who are reinterpreting the Hamsa through painting, sculpture, digital art, and street murals." },
+                    { title:"Hamsa Jewellery: From Amulet to Fashion Icon", tag:"Jewellery", readTime:"5 min", img:"https://picsum.photos/400/240?random=313", excerpt:"How the Hamsa pendant became a global fashion staple — and what designers, wearers, and communities think about its journey from sacred to stylish." },
+                    { title:"Henna & the Hamsa: Body Art Traditions", tag:"Body Art", readTime:"4 min", img:"https://picsum.photos/400/240?random=314", excerpt:"The Hamsa appears constantly in Arabic and Indian henna traditions. The significance of placement, pattern, and the protective power of temporary ink." },
+                    { title:"Designing Your Own Hamsa: A Creative Guide", tag:"DIY", readTime:"5 min", img:"https://picsum.photos/400/240?random=315", excerpt:"Tips for incorporating Hamsa motifs into your own creative work — whether you're a graphic designer, illustrator, jeweller, or first-time doodler." }
+                ]
+            },
+            "#hamsa-symbolism": {
+                title:"Symbolism & Meaning", icon:"fas fa-eye", color:"spiritual-blue",
+                img:"https://picsum.photos/900/400?random=32",
+                body:"Protection from the evil eye. Luck. Fertility. Strength. The Hamsa carries different meanings across traditions yet always radiates positive energy. Unpack the layers of meaning behind each finger and palm.",
+                articles:[
+                    { title:"The Evil Eye & the Hamsa's Protective Power", tag:"Protection", readTime:"6 min", img:"https://picsum.photos/400/240?random=321", excerpt:"Nazar, ayin hara, malocchio — the evil eye is feared across cultures. Explore how the Hamsa became humanity's most widespread antidote to envy and ill will." },
+                    { title:"Five Fingers, Five Meanings", tag:"Symbolism", readTime:"5 min", img:"https://picsum.photos/400/240?random=322", excerpt:"Each finger of the Hamsa carries its own significance. A deep dive into the numerology of five across Islamic, Jewish, Hindu, and ancient traditions." },
+                    { title:"The Eye in the Palm: What Does It See?", tag:"Mysticism", readTime:"5 min", img:"https://picsum.photos/400/240?random=323", excerpt:"The all-seeing eye at the centre of the Hamsa — its origins, its spiritual meaning, and why it appears across so many unconnected traditions worldwide." },
+                    { title:"Hamsa Facing Up vs. Facing Down: Does It Matter?", tag:"FAQ", readTime:"4 min", img:"https://picsum.photos/400/240?random=324", excerpt:"A question asked by almost every Hamsa owner. The answer is more nuanced and fascinating than most people expect — and depends on your tradition." },
+                    { title:"The Hamsa as a Symbol of Universal Peace", tag:"Peace", readTime:"5 min", img:"https://picsum.photos/400/240?random=325", excerpt:"Why the Hamsa — shared across Islam, Judaism, Christianity, and ancient traditions — may be the world's most powerful symbol for interfaith harmony." }
+                ]
+            },
+            "#hamsa-meditation": {
+                title:"Hamsa Meditation", icon:"fas fa-spa", color:"peace-green",
+                img:"https://picsum.photos/900/400?random=33",
+                body:"Use the Hamsa as a focal point for guided visualisation, breathwork, and mindful intention-setting. Our sessions blend traditions from Kabbalah, Sufism, and secular mindfulness into accessible practices for all.",
+                articles:[
+                    { title:"Hamsa Visualisation: A Guided Practice", tag:"Guided", readTime:"8 min", img:"https://picsum.photos/400/240?random=331", excerpt:"A step-by-step visualisation meditation using the Hamsa as your focal image — drawing on Sufi and Kabbalistic traditions adapted for modern practitioners." },
+                    { title:"Breathwork with the Five Fingers", tag:"Breathwork", readTime:"6 min", img:"https://picsum.photos/400/240?random=332", excerpt:"Use each finger of the Hamsa as an anchor for a five-phase breathing practice. Calming, grounding, and accessible to complete beginners." },
+                    { title:"Setting Intentions with the Hamsa", tag:"Ritual", readTime:"5 min", img:"https://picsum.photos/400/240?random=333", excerpt:"How to use a physical or visualised Hamsa as an intention-setting tool at the start of your day, week, or a new phase of life." },
+                    { title:"Sufi Approaches to Sacred Symbol Meditation", tag:"Sufism", readTime:"7 min", img:"https://picsum.photos/400/240?random=334", excerpt:"In Sufi practice, the sacred image becomes a doorway rather than a destination. Exploring muraqaba (watchful meditation) through the lens of the Hamsa." },
+                    { title:"Hamsa Mantra & Sound Healing Session", tag:"Sound", readTime:"6 min", img:"https://picsum.photos/400/240?random=335", excerpt:"Combining the Hamsa's visual power with sacred sound — Arabic, Hebrew, and Sanskrit mantras that resonate with the symbol's protective energy." }
+                ]
+            },
+            "#hamsa-gallery": {
+                title:"Community Gallery", icon:"fas fa-images", color:"earth-brown",
+                img:"https://picsum.photos/900/400?random=34",
+                body:"Submit your Hamsa photographs, sketches, tattoos, and crafts to our living gallery. Every piece is a testament to the symbol's power to inspire across cultures and generations.",
+                articles:[
+                    { title:"Gallery Spotlight: Hamsa Tattoos Around the World", tag:"Tattoos", readTime:"5 min", img:"https://picsum.photos/400/240?random=341", excerpt:"Members from 18 countries shared their Hamsa tattoos and the stories behind them. A stunning visual journey through personal meaning and cultural identity." },
+                    { title:"Handmade Hamsa: Community Craft Showcase", tag:"Craft", readTime:"4 min", img:"https://picsum.photos/400/240?random=342", excerpt:"Ceramics, macramé, embroidery, woodwork — our members create extraordinary Hamsa pieces. This month's showcase celebrates handmade over mass-produced." },
+                    { title:"Children's Hamsa Art: Next Generation Voices", tag:"Kids", readTime:"4 min", img:"https://picsum.photos/400/240?random=343", excerpt:"Young artists aged 5–15 shared their Hamsa drawings with us. Their interpretations are joyful, surprising, and deeply moving." },
+                    { title:"Photography Series: Hamsa in the Wild", tag:"Photography", readTime:"5 min", img:"https://picsum.photos/400/240?random=344", excerpt:"Community photographers hunted the Hamsa in unexpected places — painted on walls, woven into carpets, carved into ancient stones, tattooed on strangers." },
+                    { title:"How to Submit Your Hamsa Creation", tag:"Participate", readTime:"2 min", img:"https://picsum.photos/400/240?random=345", excerpt:"Guidelines and inspiration for submitting your own Hamsa artwork, photography, or craft to our community gallery. All skill levels and media are welcome." }
+                ]
+            },
+            "#me-recipes": {
+                title:"Traditional Recipes", icon:"fas fa-utensils", color:"bohemian-gold",
+                img:"https://picsum.photos/900/400?random=40",
+                body:"From Lebanese kibbeh and Moroccan tagine to Iranian ghormeh sabzi and Yemeni saltah — our recipe archive honours the extraordinary diversity and deliciousness of Middle Eastern cuisine.",
+                articles:[
+                    { title:"The Art of the Lebanese Mezze Table", tag:"Lebanese", readTime:"8 min", img:"https://picsum.photos/400/240?random=401", excerpt:"Hummus, baba ganoush, fattoush, kibbeh nayeh — how to build an authentic Lebanese mezze spread and the philosophy of abundance behind it." },
+                    { title:"Moroccan Tagine: Slow Cooking as Meditation", tag:"Moroccan", readTime:"7 min", img:"https://picsum.photos/400/240?random=402", excerpt:"The conical lid, the low flame, the patient layers of spice — making a proper tagine is a lesson in letting time do the cooking for you." },
+                    { title:"Persian Ghormeh Sabzi: Iran's Beloved Stew", tag:"Persian", readTime:"6 min", img:"https://picsum.photos/400/240?random=403", excerpt:"Dark, herb-rich, and tangy with dried limes, ghormeh sabzi is Iran's most cherished dish and a masterclass in patience, balance, and tradition." },
+                    { title:"Palestinian Musakhan: Caramelised Onions & Sumac", tag:"Palestinian", readTime:"6 min", img:"https://picsum.photos/400/240?random=404", excerpt:"A dish of extraordinary depth — slow-cooked onions, roasted chicken, sumac, and flatbread. Musakhan is Palestinian cuisine at its most iconic." },
+                    { title:"Yemeni Saltah: The National Dish You Need to Try", tag:"Yemeni", readTime:"5 min", img:"https://picsum.photos/400/240?random=405", excerpt:"Simmered lamb, fenugreek froth, and a raw zhug on top — Yemen's national dish is unlike anything else in the Middle Eastern repertoire." }
+                ]
+            },
+            "#me-culture": {
+                title:"Culture & Traditions", icon:"fas fa-globe-asia", color:"earth-brown",
+                img:"https://picsum.photos/900/400?random=41",
+                body:"Eid celebrations, Nowruz festivals, Ramadan nights, and weekly hammam visits — explore the rich tapestry of customs that shape everyday life across the Middle East and its diaspora.",
+                articles:[
+                    { title:"Ramadan Across the Region: One Month, Many Worlds", tag:"Ramadan", readTime:"8 min", img:"https://picsum.photos/400/240?random=411", excerpt:"From Cairo's lantern-lit streets to Istanbul's cannon fire and Jakarta's sahur drums — how Ramadan is experienced differently across the Muslim world." },
+                    { title:"Nowruz: The Persian New Year That Belongs to All", tag:"Nowruz", readTime:"6 min", img:"https://picsum.photos/400/240?random=412", excerpt:"The Haft-Sin table, the fire-jumping, the spring cleaning — Nowruz is 3,000 years old and still one of humanity's most joyful celebrations." },
+                    { title:"The Hammam: Ritual Bathing as Social Ritual", tag:"Traditions", readTime:"5 min", img:"https://picsum.photos/400/240?random=413", excerpt:"More than hygiene, the hammam is a space for community, gossip, ceremony, and rest. Its traditions span Morocco to Turkey to Central Asia." },
+                    { title:"Arab Wedding Traditions: A Region of Celebrations", tag:"Weddings", readTime:"7 min", img:"https://picsum.photos/400/240?random=414", excerpt:"Henna nights, zaghrouta, dabke dancing, and tables groaning with food — Arab wedding traditions are as diverse as the countries that celebrate them." },
+                    { title:"The Culture of Hospitality: A Sacred Obligation", tag:"Values", readTime:"5 min", img:"https://picsum.photos/400/240?random=415", excerpt:"Diyafa in Arabic, mehman-navazi in Persian — Middle Eastern hospitality is not mere politeness. It is a moral code, a spiritual duty, and an art form." }
+                ]
+            },
+            "#me-arts": {
+                title:"Music & Arts", icon:"fas fa-music", color:"romantic-purple",
+                img:"https://picsum.photos/900/400?random=42",
+                body:"The oud, the darbuka, classical maqam scales, Arabic calligraphy, Persian miniature painting — dive into the artistic traditions that have shaped world culture for over a millennium.",
+                articles:[
+                    { title:"The Oud: Mother of All String Instruments", tag:"Music", readTime:"7 min", img:"https://picsum.photos/400/240?random=421", excerpt:"The oud gave birth to the European lute and countless other instruments. Its 5,000-year history is the story of music itself crossing borders and centuries." },
+                    { title:"Arabic Calligraphy: Writing as Sacred Art", tag:"Visual Arts", readTime:"6 min", img:"https://picsum.photos/400/240?random=422", excerpt:"Thuluth, Naskh, Diwani — the classical scripts of Arabic calligraphy are not just beautiful; they are a living spiritual practice and an architectural language." },
+                    { title:"Maqam: The Modal System Behind Middle Eastern Music", tag:"Theory", readTime:"6 min", img:"https://picsum.photos/400/240?random=423", excerpt:"What makes Middle Eastern music sound the way it does? An accessible guide to maqam — the modal system of scales, emotions, and cosmic associations." },
+                    { title:"Persian Miniature Painting: A World in Miniature", tag:"Visual Arts", readTime:"5 min", img:"https://picsum.photos/400/240?random=424", excerpt:"Illuminated manuscripts, epic poetry, gardens and battles — Persian miniature painting compressed entire worlds into palm-sized masterpieces." },
+                    { title:"Contemporary Middle Eastern Artists to Know", tag:"Modern", readTime:"5 min", img:"https://picsum.photos/400/240?random=425", excerpt:"From Shirin Neshat's photography to eL Seed's calligraffiti — a guide to the living artists redefining what Middle Eastern art means today." }
+                ]
+            },
+            "#me-travel": {
+                title:"Travel & Destinations", icon:"fas fa-map-marked-alt", color:"spiritual-blue",
+                img:"https://picsum.photos/900/400?random=43",
+                body:"From the ancient city of Petra to the blue medinas of Chefchaouen, from the floating mosques of Dubai to the Cappadocian valleys of Turkey — discover the region's most breathtaking destinations.",
+                articles:[
+                    { title:"Petra: A City Carved from Rose-Red Stone", tag:"Jordan", readTime:"7 min", img:"https://picsum.photos/400/240?random=431", excerpt:"The Treasury at sunrise, the Siq at dusk, the Monastery at the top of 850 steps — Petra rewards every traveller who arrives with wonder and stamina." },
+                    { title:"Marrakech: Sensory Overload in the Best Possible Way", tag:"Morocco", readTime:"6 min", img:"https://picsum.photos/400/240?random=432", excerpt:"The Djemaa el-Fna by night, the spice souks at noon, the silence of the Majorelle Garden — how to navigate the world's most intoxicating city." },
+                    { title:"Cappadocia: The Land of Fairy Chimneys", tag:"Turkey", readTime:"5 min", img:"https://picsum.photos/400/240?random=433", excerpt:"Hot air balloons at dawn, underground cities, cave hotels and volcanic landscapes — Cappadocia is simultaneously ancient and otherworldly." },
+                    { title:"Yazd: Iran's City of Wind and Fire", tag:"Iran", readTime:"6 min", img:"https://picsum.photos/400/240?random=434", excerpt:"The world's oldest living city, with its badgirs (wind towers), Zoroastrian fire temples, and labyrinthine mud-brick old town that has survived for millennia." },
+                    { title:"Hidden Gems: Lesser-Known Middle Eastern Destinations", tag:"Off the Beaten Path", readTime:"6 min", img:"https://picsum.photos/400/240?random=435", excerpt:"Oman's Wahiba Sands, Lebanon's Kadisha Valley, Iraq's Marshlands — destinations that deserve far more visitors than they currently receive." }
+                ]
+            },
+            "#me-peace": {
+                title:"Peace & Dialogue", icon:"fas fa-peace", color:"peace-green",
+                img:"https://picsum.photos/900/400?random=44",
+                body:"Stories of everyday coexistence, interfaith friendship, and shared tables across borders. This is where we believe the future is built — one honest conversation at a time.",
+                articles:[
+                    { title:"Shared Tables: Stories of Arab-Jewish Coexistence", tag:"Dialogue", readTime:"7 min", img:"https://picsum.photos/400/240?random=441", excerpt:"Real stories from Haifa, Jaffa, and beyond — families, restaurateurs, and teachers building relationships that the news cycle rarely covers." },
+                    { title:"The Abrahamic Faiths: What They Share", tag:"Interfaith", readTime:"6 min", img:"https://picsum.photos/400/240?random=442", excerpt:"Islam, Judaism, and Christianity share more theology, stories, and values than their differences suggest. A respectful exploration of common ground." },
+                    { title:"Women Building Peace Across the Middle East", tag:"Women", readTime:"6 min", img:"https://picsum.photos/400/240?random=443", excerpt:"Grassroots peacebuilders, artists, journalists, and mothers — the women whose quiet, persistent work is changing the region one relationship at a time." },
+                    { title:"The Power of Language Exchange for Peace", tag:"Language", readTime:"5 min", img:"https://picsum.photos/400/240?random=444", excerpt:"What happens when Israelis learn Arabic and Palestinians learn Hebrew? Or when Europeans learn Farsi? Language as the first act of understanding." },
+                    { title:"How Food Diplomacy Builds Bridges", tag:"Food", readTime:"5 min", img:"https://picsum.photos/400/240?random=445", excerpt:"From hummus diplomacy debates to shared mezze tables — how breaking bread together disarms suspicion and creates the conditions for genuine dialogue." }
+                ]
+            }
+        };
+
+        // ─── Render Functions ───────────────────────────────────────────
         function renderNavItems(items) {
-            return items.map(item => 
-                `<li><a href="${item.href}" class="text-earth-brown hover:text-bohemian-gold transition flex items-center">
-                    <i class="${item.icon} mr-2"></i>${item.label}
-                </a></li>`
-            ).join("");
+            return items.map(item => {
+                if (!item.dropdown) {
+                    return `<li>
+                        <a href="${item.href}" class="nav-link text-earth-brown hover:text-bohemian-gold transition flex items-center px-3 py-2 text-sm font-semibold">
+                            <i class="${item.icon} mr-1.5"></i>${item.label}
+                        </a>
+                    </li>`;
+                }
+                return `<li class="relative group dropdown-parent">
+                    <button class="nav-dropdown-btn flex items-center gap-1.5 px-3 py-2 text-sm font-semibold text-earth-brown hover:text-bohemian-gold transition whitespace-nowrap" data-href="${item.href}">
+                        <i class="${item.icon} mr-1"></i>${item.label}
+                        <i class="fas fa-chevron-down text-xs ml-1 transition-transform duration-200 group-hover:rotate-180"></i>
+                    </button>
+                    <div class="dropdown-panel absolute top-full left-0 mt-1 w-72 bg-white rounded-xl shadow-2xl border border-earth-brown/10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 overflow-hidden">
+                        <div class="py-2">
+                            ${item.dropdown.map(sub => `
+                                <a href="${sub.href}" class="subpage-link flex items-start gap-3 px-4 py-3 hover:bg-soft-cream transition group/item" data-href="${sub.href}">
+                                    <div class="w-8 h-8 rounded-full bg-bohemian-gold/20 flex items-center justify-center flex-shrink-0 mt-0.5 group-hover/item:bg-bohemian-gold group-hover/item:text-white transition">
+                                        <i class="${sub.icon} text-bohemian-gold text-xs group-hover/item:text-white transition"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-sm font-semibold text-earth-brown group-hover/item:text-bohemian-gold transition">${sub.label}</div>
+                                        <div class="text-xs text-gray-500 mt-0.5">${sub.desc}</div>
+                                    </div>
+                                </a>
+                            `).join("")}
+                        </div>
+                    </div>
+                </li>`;
+            }).join("");
+        }
+
+        function renderMobileNav(items) {
+            return items.map(item => {
+                if (!item.dropdown) {
+                    return `<div class="mb-4">
+                        <a href="${item.href}" class="nav-link flex items-center gap-3 text-lg font-bold text-earth-brown py-3 border-b border-earth-brown/10">
+                            <i class="${item.icon} text-bohemian-gold w-6 text-center"></i>${item.label}
+                        </a>
+                    </div>`;
+                }
+                return `<div class="mb-4">
+                    <div class="flex items-center gap-3 text-lg font-bold text-earth-brown py-3 border-b border-earth-brown/10">
+                        <i class="${item.icon} text-bohemian-gold w-6 text-center"></i>${item.label}
+                    </div>
+                    <div class="pl-9 mt-2 space-y-2">
+                        ${item.dropdown.map(sub => `
+                            <a href="${sub.href}" class="subpage-link flex items-center gap-2 py-2 text-gray-600 hover:text-bohemian-gold transition" data-href="${sub.href}">
+                                <i class="${sub.icon} text-xs w-4 text-center"></i>
+                                <span class="text-sm">${sub.label}</span>
+                            </a>
+                        `).join("")}
+                    </div>
+                </div>`;
+            }).join("");
         }
 
         function renderBenefits(items) {
@@ -348,8 +685,9 @@
             return options.map(opt => `<option value="${opt}">${opt}</option>`).join("");
         }
 
-        // DOM initialization
+        // ─── DOM Initialization ─────────────────────────────────────────
         document.getElementById("nav-menu").innerHTML = renderNavItems(navigationItems);
+        document.getElementById("mobile-nav-content").innerHTML = renderMobileNav(navigationItems);
         document.getElementById("benefits-grid").innerHTML = renderBenefits(benefitsData);
         document.getElementById("cultural-points").innerHTML = renderCulturalPoints(culturalPoints);
         document.getElementById("principles-grid").innerHTML = renderPrinciples(principlesData);
@@ -358,68 +696,347 @@
         document.getElementById("interest-checkboxes").innerHTML = renderInterestCheckboxes(interestAreas);
         document.getElementById("culture").innerHTML = `<option value="">Select your cultural background</option>` + populateCulturalSelect(culturalBackgrounds);
 
-        // Event handling
-        // Delegated navigation
-        document.addEventListener("click", function(event) {
-            const link = event.target.closest("a[href^='#']");
-            if (!link) return;
-            event.preventDefault();
-            const targetId = link.getAttribute("href");
-            if (targetId === "#home") {
-                window.scrollTo({ top: 0, behavior: "smooth" });
-            } else {
-                // For other hash links, simulate navigation
-                alert(`Navigating to ${targetId.replace("#", "")} section (additional pages will be implemented)`);
+        // ─── Subpage Navigation ─────────────────────────────────────────
+        function renderAdSlot(label) {
+            return `
+                <div class="adsense-slot my-8 w-full rounded-xl border-2 border-dashed border-bohemian-gold/40 bg-bohemian-gold/5 flex flex-col items-center justify-center py-6 px-4 text-center" style="min-height:100px">
+                    <div class="flex items-center gap-2 mb-1 text-bohemian-gold/70">
+                        <i class="fas fa-ad text-lg"></i>
+                        <span class="text-xs font-bold uppercase tracking-widest">Advertisement</span>
+                    </div>
+                    <p class="text-xs text-gray-400 mb-3">${label}</p>
+                    <!-- ✏️ REPLACE THIS COMMENT WITH YOUR GOOGLE ADSENSE UNIT CODE -->
+                    <!-- Example:
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                         data-ad-slot="XXXXXXXXXX"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                    <script>(adsbygoogle = window.adsbygoogle || []).push({});<\/script>
+                    -->
+                    <div class="w-full max-w-2xl h-16 bg-gradient-to-r from-bohemian-gold/10 via-bohemian-gold/20 to-bohemian-gold/10 rounded-lg flex items-center justify-center">
+                        <span class="text-bohemian-gold/50 text-sm font-semibold">AdSense Unit — 728×90 or Responsive</span>
+                    </div>
+                </div>`;
+        }
+
+        function renderArticleCard(article, idx) {
+            return `
+                <article class="bg-white rounded-2xl shadow-md overflow-hidden flex flex-col md:flex-row group hover:shadow-xl transition-shadow duration-300 border border-earth-brown/8">
+                    <div class="md:w-52 flex-shrink-0 overflow-hidden">
+                        <img src="${article.img}" alt="${article.title}" class="w-full h-48 md:h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="flex flex-col justify-between p-6 flex-grow">
+                        <div>
+                            <div class="flex items-center gap-3 mb-3">
+                                <span class="bg-bohemian-gold/15 text-bohemian-gold text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">${article.tag}</span>
+                                <span class="text-gray-400 text-xs flex items-center gap-1"><i class="fas fa-clock"></i> ${article.readTime} read</span>
+                            </div>
+                            <h3 class="text-lg font-serif-bohemian font-bold text-earth-brown mb-2 group-hover:text-bohemian-gold transition-colors">${article.title}</h3>
+                            <p class="text-gray-600 text-sm leading-relaxed">${article.excerpt}</p>
+                        </div>
+                        <div class="mt-4">
+                            <button class="inline-flex items-center gap-2 text-sm font-semibold text-spiritual-blue hover:text-bohemian-gold transition-colors" onclick="alert('Article coming soon! Add your content to this placeholder.')">
+                                Read Article <i class="fas fa-arrow-right text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                </article>`;
+        }
+
+        function openSubpage(href) {
+            const page = subpageTemplates[href];
+            if (!page) return;
+            const overlay = document.getElementById("subpage-overlay");
+
+            const articleCards = page.articles.map((a, i) => renderArticleCard(a, i)).join("");
+
+            document.getElementById("subpage-content").innerHTML = `
+                <div class="max-w-4xl mx-auto">
+
+                    <!-- Page Header -->
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-14 h-14 rounded-full bg-${page.color} flex items-center justify-center flex-shrink-0 shadow-lg">
+                            <i class="${page.icon} text-white text-2xl"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-3xl md:text-4xl font-serif-bohemian font-bold text-earth-brown leading-tight">${page.title}</h2>
+                            <p class="text-gray-500 text-sm mt-1">${page.articles.length} articles · More coming soon</p>
+                        </div>
+                    </div>
+
+                    <!-- Hero Image -->
+                    <img src="${page.img}" alt="${page.title}" class="w-full rounded-2xl shadow-lg mb-6 object-cover" style="max-height:380px">
+
+                    <!-- Intro Text -->
+                    <p class="text-lg text-gray-700 leading-relaxed mb-2 border-l-4 border-bohemian-gold pl-5 italic">${page.body}</p>
+
+                    <!-- ── TOP ADSENSE SLOT ─────────────────────────────────── -->
+                    ${renderAdSlot("Top of page ad — place your AdSense leaderboard or responsive unit here")}
+
+                    <!-- Article List -->
+                    <div class="space-y-5 mb-2">
+                        ${articleCards}
+                    </div>
+
+                    <!-- ── BOTTOM ADSENSE SLOT ──────────────────────────────── -->
+                    ${renderAdSlot("Bottom of page ad — place your AdSense leaderboard or responsive unit here")}
+
+                    <!-- Coming Soon Banner -->
+                    <div class="mt-6 bg-white rounded-2xl p-7 shadow-md border border-earth-brown/10 flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-full bg-bohemian-gold/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <i class="fas fa-pencil-alt text-bohemian-gold text-lg"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-serif-bohemian font-bold text-earth-brown mb-1">Ready for your content</h3>
+                            <p class="text-gray-600 text-sm leading-relaxed">Each article card above is a placeholder waiting for your writing. Click <em>Read Article</em> on any card to see the placeholder state. When you're ready to add content, replace the <code class="bg-gray-100 px-1 rounded text-xs">excerpt</code> and link each card to its own dedicated article page.</p>
+                        </div>
+                    </div>
+
+                </div>
+            `;
+
+            overlay.classList.remove("hidden");
+            document.body.style.overflow = "hidden";
+            overlay.scrollTop = 0;
+        }
+
+        function closeSubpage() {
+            document.getElementById("subpage-overlay").classList.add("hidden");
+            document.body.style.overflow = "";
+        }
+
+        document.getElementById("back-btn").addEventListener("click", closeSubpage);
+
+        // Delegated click for all subpage links
+        document.addEventListener("click", function(e) {
+            // Subpage link clicks (both desktop dropdown and mobile)
+            const subLink = e.target.closest(".subpage-link");
+            if (subLink) {
+                e.preventDefault();
+                const href = subLink.getAttribute("data-href") || subLink.getAttribute("href");
+                // Close mobile nav if open
+                document.getElementById("mobile-nav").classList.add("hidden");
+                document.getElementById("mobile-nav").classList.remove("flex");
+                openSubpage(href);
+                return;
             }
+
+            // Home link
+            const homeLink = e.target.closest("a[href='#home'], .nav-link[href='#home']");
+            if (homeLink) {
+                e.preventDefault();
+                closeSubpage();
+                window.scrollTo({ top: 0, behavior: "smooth" });
+                return;
+            }
+
+            // Dropdown parent section button (clicking section label navigates nowhere — just toggles on mobile)
         });
 
-        // Theme toggle
+        // ─── Mobile Menu ────────────────────────────────────────────────
+        document.getElementById("mobile-menu-btn").addEventListener("click", function() {
+            const nav = document.getElementById("mobile-nav");
+            nav.classList.remove("hidden");
+            nav.classList.add("flex");
+        });
+        document.getElementById("mobile-close").addEventListener("click", function() {
+            const nav = document.getElementById("mobile-nav");
+            nav.classList.add("hidden");
+            nav.classList.remove("flex");
+        });
+
+        // ─── Theme Toggle ───────────────────────────────────────────────
         document.getElementById("theme-toggle").addEventListener("click", function() {
             const body = document.body;
-            const currentBg = body.classList.contains("bg-soft-cream");
-            if (currentBg) {
+            if (body.classList.contains("bg-soft-cream")) {
                 body.classList.remove("bg-soft-cream");
                 body.classList.add("bg-gray-900", "text-white");
                 this.innerHTML = `<i class="fas fa-sun mr-2"></i>Light Mode`;
-                this.classList.remove("bg-spiritual-blue");
-                this.classList.add("bg-bohemian-gold");
+                this.classList.replace("bg-spiritual-blue", "bg-bohemian-gold");
             } else {
                 body.classList.remove("bg-gray-900", "text-white");
                 body.classList.add("bg-soft-cream");
                 this.innerHTML = `<i class="fas fa-moon mr-2"></i>Peace Mode`;
-                this.classList.remove("bg-bohemian-gold");
-                this.classList.add("bg-spiritual-blue");
+                this.classList.replace("bg-bohemian-gold", "bg-spiritual-blue");
             }
         });
 
-        // Contact form submission
-        document.getElementById("contact-form").addEventListener("submit", function(event) {
-            event.preventDefault();
+        // ─── Contact Form ───────────────────────────────────────────────
+        document.getElementById("contact-form").addEventListener("submit", function(e) {
+            e.preventDefault();
             const name = document.getElementById("name").value;
             const email = document.getElementById("email").value;
             const message = document.getElementById("message").value;
-            
-            if (!name || !email || !message) {
-                alert("Please fill in all required fields.");
-                return;
-            }
-            
-            // Simulate form submission
+            if (!name || !email || !message) { alert("Please fill in all required fields."); return; }
             alert(`Thank you ${name}! Your message of peace has been sent. We'll connect with you at ${email} soon.`);
             this.reset();
         });
 
-        // Newsletter subscription
+        // ─── Supabase Config ────────────────────────────────────────────
+        // ✏️ REPLACE these two values with your own Supabase project credentials.
+        // Find them in: Supabase Dashboard → Your Project → Settings → API
+        const SUPABASE_URL  = "https://YOUR_PROJECT_ID.supabase.co";   // ← paste your Project URL
+        const SUPABASE_ANON = "YOUR_ANON_PUBLIC_KEY";                   // ← paste your anon/public key
+
+        // The table this writes to is called "newsletter_subscribers".
+        // Create it in Supabase with: SQL Editor → New Query → paste & run:
+        //
+        //   create table newsletter_subscribers (
+        //     id         bigserial primary key,
+        //     email      text not null unique,
+        //     created_at timestamptz default now()
+        //   );
+        //
+        // Then enable Row Level Security and add an INSERT policy for anon users:
+        //   create policy "Allow anon insert" on newsletter_subscribers
+        //     for insert to anon with check (true);
+
+        async function saveEmailToSupabase(email) {
+            const res = await fetch(`${SUPABASE_URL}/rest/v1/newsletter_subscribers`, {
+                method: "POST",
+                headers: {
+                    "Content-Type":  "application/json",
+                    "apikey":        SUPABASE_ANON,
+                    "Authorization": `Bearer ${SUPABASE_ANON}`,
+                    "Prefer":        "return=minimal"
+                },
+                body: JSON.stringify({ email })
+            });
+            if (res.status === 409) return { duplicate: true };   // already subscribed
+            if (!res.ok) throw new Error(`Supabase error ${res.status}`);
+            return { success: true };
+        }
+
+        // ─── Newsletter ─────────────────────────────────────────────────
         const newsletterBtn = document.querySelector("footer button");
-        newsletterBtn.addEventListener("click", function() {
+        newsletterBtn.addEventListener("click", async function() {
             const emailInput = this.previousElementSibling;
-            if (!emailInput.value) {
-                alert("Please enter your email address.");
+            const email = emailInput.value.trim();
+            if (!email) { alert("Please enter your email address."); return; }
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                alert("Please enter a valid email address."); return;
+            }
+
+            // Check credentials are still placeholders
+            if (SUPABASE_URL.includes("YOUR_PROJECT_ID")) {
+                alert("⚠️  Supabase not connected yet.\n\nReplace SUPABASE_URL and SUPABASE_ANON in the script with your real credentials, then this will save emails automatically.");
                 return;
             }
-            alert(`Thank you! You've subscribed to our Peace Newsletter. We'll send spiritual insights to ${emailInput.value}.`);
-            emailInput.value = "";
+
+            this.disabled = true;
+            this.innerHTML = `<i class="fas fa-spinner fa-spin"></i>`;
+            try {
+                const result = await saveEmailToSupabase(email);
+                if (result.duplicate) {
+                    alert("You're already on the list — we'll be in touch! 🌟");
+                } else {
+                    alert(`Thank you! You're on our Peace Newsletter list. We'll reach out when we launch. 🙏`);
+                    emailInput.value = "";
+                }
+            } catch (err) {
+                console.error("Newsletter error:", err);
+                alert("Something went wrong. Please try again in a moment.");
+            } finally {
+                this.disabled = false;
+                this.innerHTML = `<i class="fas fa-envelope"></i>`;
+            }
         });
+
+        // ─── Cookie Banner ──────────────────────────────────────────────
+        const COOKIE_KEY = "hamsacafe_cookie_consent";
+
+        function getCookieConsent() {
+            try { return JSON.parse(localStorage.getItem(COOKIE_KEY)); } catch { return null; }
+        }
+        function saveCookieConsent(prefs) {
+            localStorage.setItem(COOKIE_KEY, JSON.stringify({ ...prefs, savedAt: Date.now() }));
+        }
+        function hideBanner() {
+            document.getElementById("cookie-banner").classList.add("hidden");
+        }
+        function applyConsent(prefs) {
+            // If advertising cookies are denied, you can disable AdSense here.
+            // window['ga-disable-UA-XXXXXX-X'] = !prefs.advertising;
+            // adsbygoogle consent mode hooks go here when you add AdSense.
+            console.info("Cookie consent applied:", prefs);
+        }
+
+        // Sync toggle UI to checkbox state
+        const adsToggle = document.getElementById("cookie-ads-toggle");
+        const adsTrack  = document.getElementById("cookie-ads-track");
+        const adsThumb  = document.getElementById("cookie-ads-thumb");
+        function syncToggleUI() {
+            if (adsToggle.checked) {
+                adsTrack.classList.replace("bg-gray-500", "bg-peace-green");
+                adsThumb.style.transform = "translateX(20px)";
+            } else {
+                adsTrack.classList.replace("bg-peace-green", "bg-gray-500");
+                adsThumb.style.transform = "translateX(0)";
+            }
+        }
+        adsToggle.addEventListener("change", syncToggleUI);
+        syncToggleUI();
+
+        // Toggle click area (the visible track)
+        adsTrack.addEventListener("click", () => {
+            adsToggle.checked = !adsToggle.checked;
+            syncToggleUI();
+        });
+
+        // Button handlers
+        document.getElementById("cookie-accept").addEventListener("click", () => {
+            const prefs = { essential: true, advertising: true };
+            saveCookieConsent(prefs);
+            applyConsent(prefs);
+            hideBanner();
+        });
+        document.getElementById("cookie-reject").addEventListener("click", () => {
+            const prefs = { essential: true, advertising: false };
+            saveCookieConsent(prefs);
+            applyConsent(prefs);
+            hideBanner();
+        });
+        document.getElementById("cookie-custom").addEventListener("click", () => {
+            const prefs = { essential: true, advertising: adsToggle.checked };
+            saveCookieConsent(prefs);
+            applyConsent(prefs);
+            hideBanner();
+        });
+
+        // Show banner on first visit (no saved consent)
+        (function initCookieBanner() {
+            const saved = getCookieConsent();
+            if (!saved) {
+                // Small delay so the page renders first
+                setTimeout(() => {
+                    document.getElementById("cookie-banner").classList.remove("hidden");
+                }, 800);
+            } else {
+                applyConsent(saved);
+            }
+        })();
     </script>
+
+    <style>
+        /* Dropdown hover bridge — prevents gap between button and panel closing the hover */
+        .dropdown-parent::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            height: 8px;
+        }
+        /* Smooth dropdown panel */
+        .dropdown-panel {
+            transform: translateY(4px);
+            transition: opacity 0.18s ease, visibility 0.18s ease, transform 0.18s ease;
+        }
+        .group:hover .dropdown-panel {
+            transform: translateY(0);
+        }
+    </style>
 </body>
 </html>
