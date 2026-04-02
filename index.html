@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <base target="_self">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hamsa Cafe | Cross-Cultural Meeting Hub for Peace</title>
+    <meta name="description" content="Hamsacafe.com is a joined meeting hub for different cultures worldwide believing in peace, embracing all benefits the Hamsa brings to humanity.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "bohemian-gold": "#d4a017",
+                        "spiritual-blue": "#4a6fa5",
+                        "peace-green": "#6b8e23",
+                        "romantic-purple": "#9d6baf",
+                        "earth-brown": "#8b7355",
+                        "soft-cream": "#f5f1e6"
+                    },
+                    fontFamily: {
+                        "handwritten": ["'Cursive', 'Brush Script MT', serif"],
+                        "serif-bohemian": ["'Playfair Display', 'Georgia', serif"]
+                    },
+                    backgroundImage: {
+                        "hamsa-banner": "url('https://picsum.photos/1200/600?random=10')",
+                        "pattern-dots": "url('https://picsum.photos/200/200?random=11')"
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body class="min-h-screen bg-soft-cream">
+    <!-- Header with Navigation -->
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-sm shadow-sm">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <div class="w-10 h-10 rounded-full bg-bohemian-gold flex items-center justify-center mr-3">
+                        <i class="fas fa-hand-paper text-white text-lg"></i>
+                    </div>
+                    <h1 class="text-2xl font-serif-bohemian font-bold text-earth-brown">Hamsa Cafe</h1>
+                </div>
+                
+                <nav>
+                    <ul id="nav-menu" class="flex space-x-8"></ul>
+                </nav>
+                
+                <div class="hidden md:block">
+                    <button id="theme-toggle" class="bg-spiritual-blue text-white px-4 py-2 rounded-full hover:bg-romantic-purple transition">
+                        <i class="fas fa-moon mr-2"></i>Peace Mode
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Banner with Hamsa Drawing -->
+    <section class="relative">
+        <div class="h-96 bg-hamsa-banner bg-center bg-cover flex items-center justify-center">
+            <div class="absolute inset-0 bg-black/30"></div>
+            <div class="relative z-10 text-center px-4">
+                <h2 class="text-5xl md:text-6xl font-serif-bohemian font-bold text-white mb-4">The Hand of Harmony</h2>
+                <p class="text-xl text-white max-w-2xl mx-auto">A sacred symbol bridging cultures, inviting peace, and nurturing spiritual connections across the globe.</p>
+                <div class="mt-8">
+                    <div class="w-24 h-24 mx-auto rounded-full border-4 border-bohemian-gold flex items-center justify-center">
+                        <i class="fas fa-hand-paper text-white text-4xl"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-soft-cream to-transparent"></div>
+    </section>
+
+    <!-- Introduction Section -->
+    <main class="container mx-auto px-4 py-12">
+        <section class="mb-16">
+            <div class="text-center mb-12">
+                <h3 class="text-3xl font-serif-bohemian font-bold text-earth-brown mb-4">Welcome to Hamsa Cafe</h3>
+                <p class="text-lg text-gray-700 max-w-3xl mx-auto">A joined meeting hub where diverse cultures converge in peace, embracing all spiritual, emotional, and communal benefits the Hamsa symbol brings to humanity.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="benefits-grid"></div>
+        </section>
+
+        <!-- Cultural Harmony Section -->
+        <section class="mb-16 bg-white rounded-2xl p-8 shadow-lg">
+            <h4 class="text-2xl font-serif-bohemian font-bold text-spiritual-blue mb-6 text-center">How We Bridge Cultures</h4>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="space-y-6">
+                    <div id="cultural-points"></div>
+                </div>
+                <div class="flex justify-center">
+                    <div class="relative">
+                        <img src="https://picsum.photos/500/400?random=12" alt="Global cultural gathering around Hamsa symbol" class="rounded-xl shadow-md">
+                        <div class="absolute -top-4 -right-4 w-20 h-20 bg-romantic-purple rounded-full flex items-center justify-center">
+                            <i class="fas fa-globe-asia text-white text-2xl"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Peace Principles -->
+        <section class="mb-16">
+            <h5 class="text-2xl font-serif-bohemian font-bold text-peace-green mb-8 text-center">The Five Principles of Peace</h5>
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-4" id="principles-grid"></div>
+        </section>
+
+        <!-- Contact Form Section -->
+        <section class="mb-16 bg-white rounded-2xl p-8 shadow-lg">
+            <h6 class="text-2xl font-serif-bohemian font-bold text-earth-brown mb-6 text-center">Join Our Circle of Peace</h6>
+            <p class="text-gray-700 mb-8 text-center max-w-2xl mx-auto">Connect with us to learn more about cross-cultural events, spiritual gatherings, or share your own peace initiatives.</p>
+            
+            <form id="contact-form" class="max-w-2xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label for="name" class="block text-gray-700 mb-2">Your Name *</label>
+                        <input type="text" id="name" name="name" class="w-full px-4 py-3 border border-earth-brown/30 rounded-lg focus:outline-none focus:border-spiritual-blue" placeholder="Enter your full name" required>
+                    </div>
+                    <div>
+                        <label for="email" class="block text-gray-700 mb-2">Email Address *</label>
+                        <input type="email" id="email" name="email" class="w-full px-4 py-3 border border-earth-brown/30 rounded-lg focus:outline-none focus:border-spiritual-blue" placeholder="Enter your email" required>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <label for="culture" class="block text-gray-700 mb-2">Cultural Background</label>
+                    <select id="culture" name="culture" class="w-full px-4 py-3 border border-earth-brown/30 rounded-lg focus:outline-none focus:border-spiritual-blue">
+                        <option value="">Select your cultural background</option>
+                    </select>
+                </div>
+                
+                <div class="mb-6">
+                    <label for="message" class="block text-gray-700 mb-2">Your Message *</label>
+                    <textarea id="message" name="message" rows="5" class="w-full px-4 py-3 border border-earth-brown/30 rounded-lg focus:outline-none focus:border-spiritual-blue" placeholder="Share your thoughts about cross-cultural peace..." required></textarea>
+                </div>
+                
+                <div class="mb-6">
+                    <label for="interest" class="block text-gray-700 mb-2">Areas of Interest</label>
+                    <div id="interest-checkboxes"></div>
+                </div>
+                
+                <div class="text-center">
+                    <button type="submit" class="bg-peace-green text-white px-8 py-3 rounded-full hover:bg-bohemian-gold transition duration-300 font-semibold">
+                        <i class="fas fa-paper-plane mr-2"></i>Send Message of Peace
+                    </button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-earth-brown text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-bohemian-gold flex items-center justify-center mr-3">
+                            <i class="fas fa-hand-paper text-white text-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-serif-bohemian font-bold">Hamsa Cafe</h3>
+                    </div>
+                    <p class="text-gray-300">A global meeting hub embracing the Hamsa's spiritual blessings for cross-cultural harmony and peace.</p>
+                </div>
+                
+                <div>
+                    <h4 class="text-xl font-serif-bohemian font-bold mb-4">Quick Links</h4>
+                    <ul id="footer-links"></ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-xl font-serif-bohemian font-bold mb-4">Connect With Us</h4>
+                    <div id="social-links"></div>
+                    <div class="mt-6">
+                        <p class="text-gray-300 mb-2">Subscribe to our Peace Newsletter</p>
+                        <div class="flex">
+                            <input type="email" placeholder="Your email" class="flex-grow px-4 py-2 bg-white/20 rounded-l-lg focus:outline-none">
+                            <button class="bg-bohemian-gold px-4 py-2 rounded-r-lg hover:bg-romantic-purple transition">
+                                <i class="fas fa-envelope"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 pt-8 border-t border-gray-600 text-center">
+                <div class="flex justify-center space-x-6">
+                    <a href="#privacy" class="text-gray-300 hover:text-white transition">Privacy Policy</a>
+                    <a href="#terms" class="text-gray-300 hover:text-white transition">Terms of Service</a>
+                    <a href="#cookies" class="text-gray-300 hover:text-white transition">Cookie Policy</a>
+                </div>
+                <p class="mt-4 text-gray-400">© 2023 Hamsa Cafe. All rights reserved. Spiritually touched design.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Data layer
+        const navigationItems = [
+            { "label": "Home", "href": "#home", "icon": "fas fa-home" },
+            { "label": "Cultural Events", "href": "#events", "icon": "fas fa-calendar-alt" },
+            { "label": "Peace Stories", "href": "#stories", "icon": "fas fa-book-open" },
+            { "label": "Meditation Hub", "href": "#meditation", "icon": "fas fa-spa" }
+        ];
+
+        const benefitsData = [
+            { 
+                "title": "Spiritual Connection", 
+                "description": "The Hamsa represents divine protection and spiritual awakening, connecting souls across different faiths.",
+                "icon": "fas fa-heart",
+                "color": "romantic-purple"
+            },
+            { 
+                "title": "Cultural Harmony", 
+                "description": "We create safe spaces where traditions, rituals, and beliefs from worldwide cultures meet and enrich each other.",
+                "icon": "fas fa-globe",
+                "color": "spiritual-blue"
+            },
+            { 
+                "title": "Peace Advocacy", 
+                "description": "Active promotion of peaceful dialogue, conflict resolution, and mutual understanding through symbolic gatherings.",
+                "icon": "fas fa-peace",
+                "color": "peace-green"
+            }
+        ];
+
+        const culturalPoints = [
+            { "text": "Monthly virtual gatherings where members share cultural rituals and spiritual practices." },
+            { "text": "Collaborative art projects inspired by the Hamsa symbol from different cultural perspectives." },
+            { "text": "Language exchange circles focused on peace-related vocabulary and compassionate communication." },
+            { "text": "Interfaith meditation sessions that honor diverse spiritual traditions while seeking common ground." }
+        ];
+
+        const principlesData = [
+            { "name": "Protection", "icon": "fas fa-shield-alt", "desc": "Creating safe spaces for cultural expression" },
+            { "name": "Blessing", "icon": "fas fa-star", "desc": "Blessing each encounter with positive energy" },
+            { "name": "Strength", "icon": "fas fa-hand-rock", "desc": "Strength through unity and mutual support" },
+            { "name": "Power", "icon": "fas fa-bolt", "desc": "Power of collective peace-making efforts" },
+            { "name": "Harmony", "icon": "fas fa-music", "desc": "Harmonizing different voices into one chorus" }
+        ];
+
+        const footerLinks = [
+            { "label": "About Hamsa Cafe", "href": "#about" },
+            { "label": "Cultural Events Calendar", "href": "#events" },
+            { "label": "Peace Resources", "href": "#resources" },
+            { "label": "Volunteer Opportunities", "href": "#volunteer" },
+            { "label": "Contact Us", "href": "#contact" }
+        ];
+
+        const socialLinks = [
+            { "platform": "Facebook", "icon": "fab fa-facebook", "href": "#facebook" },
+            { "platform": "Instagram", "icon": "fab fa-instagram", "href": "#instagram" },
+            { "platform": "YouTube", "icon": "fab fa-youtube", "href": "#youtube" },
+            { "platform": "Twitter", "icon": "fab fa-twitter", "href": "#twitter" }
+        ];
+
+        const culturalBackgrounds = [
+            "Middle Eastern", "African", "Asian", "European", 
+            "North American", "South American", "Oceanic", "Mixed Heritage", 
+            "Global Nomad", "Spiritual Seeker"
+        ];
+
+        const interestAreas = [
+            { "id": "meditation", "label": "Meditation & Mindfulness" },
+            { "id": "art", "label": "Cultural Art Projects" },
+            { "id": "dialogue", "label": "Peace Dialogue Circles" },
+            { "id": "language", "label": "Language Exchange" },
+            { "id": "events", "label": "Event Participation" }
+        ];
+
+        // Reusable render functions
+        function renderNavItems(items) {
+            return items.map(item => 
+                `<li><a href="${item.href}" class="text-earth-brown hover:text-bohemian-gold transition flex items-center">
+                    <i class="${item.icon} mr-2"></i>${item.label}
+                </a></li>`
+            ).join("");
+        }
+
+        function renderBenefits(items) {
+            return items.map(item => 
+                `<div class="bg-white rounded-xl p-6 shadow-md border border-${item.color}/20">
+                    <div class="w-12 h-12 rounded-full bg-${item.color} flex items-center justify-center mb-4">
+                        <i class="${item.icon} text-white text-xl"></i>
+                    </div>
+                    <h4 class="text-xl font-serif-bohemian font-bold text-gray-800 mb-2">${item.title}</h4>
+                    <p class="text-gray-600">${item.description}</p>
+                </div>`
+            ).join("");
+        }
+
+        function renderCulturalPoints(items) {
+            return items.map(item => 
+                `<div class="flex items-start">
+                    <div class="w-6 h-6 rounded-full bg-peace-green flex items-center justify-center mr-3 mt-1">
+                        <i class="fas fa-check text-white text-xs"></i>
+                    </div>
+                    <p class="text-gray-700">${item.text}</p>
+                </div>`
+            ).join("");
+        }
+
+        function renderPrinciples(items) {
+            return items.map(item => 
+                `<div class="text-center p-4 rounded-lg bg-white/80 shadow-sm">
+                    <div class="w-16 h-16 rounded-full bg-bohemian-gold/30 flex items-center justify-center mx-auto mb-3">
+                        <i class="${item.icon} text-bohemian-gold text-2xl"></i>
+                    </div>
+                    <h5 class="font-serif-bohemian font-bold text-lg text-earth-brown">${item.name}</h5>
+                    <p class="text-gray-600 text-sm mt-2">${item.desc}</p>
+                </div>`
+            ).join("");
+        }
+
+        function renderFooterLinks(items) {
+            return items.map(item => 
+                `<li class="mb-2">
+                    <a href="${item.href}" class="text-gray-300 hover:text-white transition">${item.label}</a>
+                </li>`
+            ).join("");
+        }
+
+        function renderSocialLinks(items) {
+            return items.map(item => 
+                `<a href="${item.href}" class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/20 hover:bg-bohemian-gold transition mr-3">
+                    <i class="${item.icon}"></i>
+                </a>`
+            ).join("");
+        }
+
+        function renderInterestCheckboxes(items) {
+            return items.map(item => 
+                `<div class="flex items-center mb-2">
+                    <input type="checkbox" id="${item.id}" name="interest" value="${item.id}" class="mr-3">
+                    <label for="${item.id}" class="text-gray-700">${item.label}</label>
+                </div>`
+            ).join("");
+        }
+
+        function populateCulturalSelect(options) {
+            return options.map(opt => `<option value="${opt}">${opt}</option>`).join("");
+        }
+
+        // DOM initialization
+        document.getElementById("nav-menu").innerHTML = renderNavItems(navigationItems);
+        document.getElementById("benefits-grid").innerHTML = renderBenefits(benefitsData);
+        document.getElementById("cultural-points").innerHTML = renderCulturalPoints(culturalPoints);
+        document.getElementById("principles-grid").innerHTML = renderPrinciples(principlesData);
+        document.getElementById("footer-links").innerHTML = renderFooterLinks(footerLinks);
+        document.getElementById("social-links").innerHTML = renderSocialLinks(socialLinks);
+        document.getElementById("interest-checkboxes").innerHTML = renderInterestCheckboxes(interestAreas);
+        document.getElementById("culture").innerHTML = `<option value="">Select your cultural background</option>` + populateCulturalSelect(culturalBackgrounds);
+
+        // Event handling
+        // Delegated navigation
+        document.addEventListener("click", function(event) {
+            const link = event.target.closest("a[href^='#']");
+            if (!link) return;
+            event.preventDefault();
+            const targetId = link.getAttribute("href");
+            if (targetId === "#home") {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+            } else {
+                // For other hash links, simulate navigation
+                alert(`Navigating to ${targetId.replace("#", "")} section (additional pages will be implemented)`);
+            }
+        });
+
+        // Theme toggle
+        document.getElementById("theme-toggle").addEventListener("click", function() {
+            const body = document.body;
+            const currentBg = body.classList.contains("bg-soft-cream");
+            if (currentBg) {
+                body.classList.remove("bg-soft-cream");
+                body.classList.add("bg-gray-900", "text-white");
+                this.innerHTML = `<i class="fas fa-sun mr-2"></i>Light Mode`;
+                this.classList.remove("bg-spiritual-blue");
+                this.classList.add("bg-bohemian-gold");
+            } else {
+                body.classList.remove("bg-gray-900", "text-white");
+                body.classList.add("bg-soft-cream");
+                this.innerHTML = `<i class="fas fa-moon mr-2"></i>Peace Mode`;
+                this.classList.remove("bg-bohemian-gold");
+                this.classList.add("bg-spiritual-blue");
+            }
+        });
+
+        // Contact form submission
+        document.getElementById("contact-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const message = document.getElementById("message").value;
+            
+            if (!name || !email || !message) {
+                alert("Please fill in all required fields.");
+                return;
+            }
+            
+            // Simulate form submission
+            alert(`Thank you ${name}! Your message of peace has been sent. We'll connect with you at ${email} soon.`);
+            this.reset();
+        });
+
+        // Newsletter subscription
+        const newsletterBtn = document.querySelector("footer button");
+        newsletterBtn.addEventListener("click", function() {
+            const emailInput = this.previousElementSibling;
+            if (!emailInput.value) {
+                alert("Please enter your email address.");
+                return;
+            }
+            alert(`Thank you! You've subscribed to our Peace Newsletter. We'll send spiritual insights to ${emailInput.value}.`);
+            emailInput.value = "";
+        });
+    </script>
+</body>
+</html>
